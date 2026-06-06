@@ -1,0 +1,10 @@
+node_modules/
+uploads/*
+!uploads/.gitkeep
+workspace/*
+!workspace/CLAUDE.md
+.env
+*.log
+.DS_Store
+Thumbs.db
+documents/

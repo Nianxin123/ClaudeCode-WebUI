@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code Web UI</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Marked.js for Markdown渲染 -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- Highlight.js for代码高亮 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <!-- Mermaid for图表渲染 -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <!-- 侧边栏 -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1 class="logo">Claude Code UI</h1>
+        <span class="version">~ Designed by Nianxin</span>
+      </div>
+      <div class="sidebar-actions">
+        <button class="btn btn-new-chat" onclick="newChat()">
+          <span>+</span> 新对话
+        </button>
+        <button class="btn btn-clear" onclick="clearHistory()">
+          <span>-</span> 清空历史
+        </button>
+      </div>
+      <div class="sidebar-info">
+        <button class="btn btn-theme" onclick="toggleTheme()" id="themeBtn">
+          <span class="theme-icon">🌙</span>
+          <span class="theme-text">切换浅色主题</span>
+        </button>
+        <div class="status-indicator">
+          <span class="status-dot"></span>
+          <span>服务运行中</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+      <!-- 顶部栏 -->
+      <header class="header">
+        <div class="header-left">
+          <button class="btn-menu" onclick="toggleSidebar()">☰</button>
+          <h2>对话</h2>
+        </div>
+        <div class="header-right">
+          <button class="btn btn-icon" onclick="exportChat()" title="导出对话">📥</button>
+        </div>
+      </header>
+
+      <!-- 消息区域 -->
+      <div class="messages-container" id="messagesContainer">
+        <div class="welcome-message">
+          <div class="welcome-icon">👋</div>
+          <h2>欢迎使用 Claude Code Web UI</h2>
+          <p>这是一个连接本地Claude Code的Web界面</p>
+          <div class="welcome-tips">
+            <div class="tip">
+              <span></span>
+              <span>输入文字与AI对话</span>
+            </div>
+            <div class="tip">
+              <span></span>
+              <span>可上传文件</span>
+            </div>
+            <div class="tip">
+              <span></span>
+              <span>支持Markdown格式</span>
+            </div>
+            <div class="tip">
+              <span></span>
+              <span>支持mermaid图表</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 输入区域 -->
+      <div class="input-area">
+        <!-- 文件预览区 -->
+        <div class="file-preview" id="filePreview" style="display: none;">
+          <div class="file-list" id="fileList"></div>
+        </div>
+
+        <!-- 输入框 -->
+        <div class="input-wrapper">
+          <div class="input-actions-left">
+            <button class="btn btn-icon" onclick="triggerFileUpload()" title="上传文件">
+              📎
+            </button>
+            <input type="file" id="fileInput" multiple accept="image/*,.pdf,.doc,.docx,.txt,.json,.csv"
+              style="display: none;" onchange="handleFileSelect(event)">
+          </div>
+
+          <textarea id="messageInput" placeholder="输入消息... (Shift+Enter换行)" rows="1" onkeydown="handleKeyDown(event)"
+            oninput="adjustTextareaHeight(this)"></textarea>
+
+          <div class="input-actions-right">
+            <button class="btn btn-send" onclick="sendMessage()" id="sendBtn">
+              <span>➤</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="input-hint">
+          <span>提示: 支持上传图片、PDF、文档等文件</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 消息模板 -->
+  <template id="messageTemplate">
+    <div class="message">
+      <div class="message-avatar">
+        <span class="avatar"></span>
+      </div>
+      <div class="message-content">
+        <div class="message-header">
+          <span class="message-role"></span>
+          <span class="message-time"></span>
+        </div>
+        <div class="message-body"></div>
+        <div class="message-files"></div>
+      </div>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
