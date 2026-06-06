@@ -8,3 +8,5 @@ workspace/*
 .DS_Store
 Thumbs.db
 documents/
+dist/
+package-pkg.json
