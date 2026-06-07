@@ -5,24 +5,10 @@
 ![Node.js](https://img.shields.io/badge/Node.js-%3E%3D14.0-339933?style=flat-square&logo=node.js&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-4.18-000000?style=flat-square&logo=express&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)
-![PRs](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=flat-square)
 
 **一个现代化的 Claude Code Web 界面，让 AI 对话更简单、更直观**
 
-[快速开始](#-快速开始) • [功能特性](#-功能特性) • [使用说明](#-使用说明) • [常见问题](#-常见问题)
-
 </div>
-
----
-
-## 📸 功能预览
-
-- 🎨 **现代 UI 设计** - 深色/浅色主题切换
-- 💬 **实时对话** - 流式响应，打字机效果
-- 📎 **文件上传** - 支持拖拽、粘贴上传
-- 📊 **图表渲染** - 支持 Mermaid 流程图、时序图
-- 📝 **Markdown** - 完整的 Markdown 渲染支持
-- 🎭 **自定义头像** - 用户和 AI 独立头像
 
 ---
 
@@ -36,27 +22,17 @@
 | 📊 Mermaid 图表 | 支持流程图、时序图、甘特图等 |
 | 📝 Markdown | 完整的 Markdown 渲染和代码高亮 |
 | 🌓 主题切换 | 深色/浅色主题一键切换 |
-| 💾 历史记录 | 自动保存对话历史 |
-| 📥 导出功能 | 一键导出对话为 Markdown 文件 |
 
 ---
 
 ## 🚀 快速开始
 
-### 方式一：一键启动（Windows）
+### 前置要求
 
-```bash
-# 1. 下载项目
-git clone https://github.com/Nianxin123/ClaudeCode-WebUI.git
+- [Node.js](https://nodejs.org/) >= 14.0
+- [Claude Code](https://docs.anthropic.com/claude-code) CLI 工具
 
-# 2. 进入目录
-cd ClaudeCode-WebUI
-
-# 3. 双击运行
-启动服务.bat
-```
-
-### 方式二：手动安装
+### 安装步骤
 
 ```bash
 # 1. 克隆项目
@@ -70,41 +46,9 @@ npm install
 npm start
 ```
 
-### 方式三：使用 PM2（推荐生产环境）
+### Windows 用户
 
-```bash
-# 安装 PM2
-npm install pm2 -g
-
-# 启动服务
-pm2 start server.js --name claude-code-web-ui
-
-# 保存并设置开机自启
-pm2 save
-pm2 startup
-```
-
----
-
-## 📋 前置要求
-
-| 软件 | 版本 | 说明 |
-|------|------|------|
-| [Node.js](https://nodejs.org/) | >= 14.0 | JavaScript 运行环境 |
-| [Claude Code](https://docs.anthropic.com/claude-code) | 最新版 | Anthropic CLI 工具 |
-
-### 安装 Claude Code
-
-```bash
-# 全局安装
-npm install -g @anthropic-ai/claude-code
-
-# 配置 API Key
-claude config set apiKey YOUR_API_KEY
-
-# 验证安装
-claude --version
-```
+双击 `启动服务.bat` 即可一键启动。
 
 ---
 
@@ -112,214 +56,60 @@ claude --version
 
 ```
 ClaudeCode-WebUI/
-├── public/                 # 前端静态文件
-│   ├── index.html         # 主页面
-│   ├── style.css          # 样式文件
-│   ├── app.js             # 前端逻辑
-│   └── 头像/              # 头像图片
-│       ├── image.png      # AI 头像
-│       └── my_avatar.jpg  # 用户头像
-├── workspace/             # AI 工作目录
-│   └── CLAUDE.md          # Claude Code 配置
-├── server.js              # 后端服务器
-├── package.json           # 项目配置
-├── 启动服务.bat           # Windows 启动脚本
-├── 停止服务.bat           # Windows 停止脚本
-└── README.md              # 项目说明
+├── public/              # 前端静态文件
+│   ├── index.html
+│   ├── style.css
+│   ├── app.js
+│   └── 头像/            # 头像图片
+├── workspace/           # AI 工作目录
+│   └── CLAUDE.md        # Claude Code 配置
+├── server.js            # 后端服务器
+├── package.json
+├── 启动服务.bat         # 启动脚本
+└── 停止服务.bat         # 停止脚本
 ```
 
 ---
 
 ## ⚙️ 配置说明
 
-### 修改端口号
+**修改端口号：** 编辑 `server.js` 中的 `PORT` 变量
 
-编辑 `server.js` 文件：
+**自定义头像：** 将图片放入 `public/头像/` 目录
 
-```javascript
-const PORT = 3000;  // 修改为你想要的端口号
-```
-
-### 自定义头像
-
-将你的头像放入 `public/头像/` 目录：
-
-- `image.png` - AI 助手头像
-- `my_avatar.jpg` - 用户头像
-
-### Claude Code 配置
-
-编辑 `workspace/CLAUDE.md` 文件，自定义 AI 行为：
-
-```markdown
-# Claude Code 工作空间配置
-
-## 图表生成规则
-当用户要求生成图表时，必须使用 Mermaid 语法。
-```
-
----
-
-## 🎯 API 接口
-
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| `POST` | `/api/chat` | 发送消息 |
-| `POST` | `/api/upload` | 上传文件 |
-| `GET` | `/api/history` | 获取历史记录 |
-| `DELETE` | `/api/history` | 清空历史记录 |
-| `GET` | `/api/health` | 健康检查 |
+**AI 行为配置：** 编辑 `workspace/CLAUDE.md`
 
 ---
 
 ## ❓ 常见问题
 
-### Q: 启动时提示"端口已被占用"
-
+**端口被占用：**
 ```bash
-# 查找占用端口的进程
 netstat -ano | findstr :3000
-
-# 终止进程（替换 <PID>）
 taskkill /F /PID <PID>
 ```
 
-### Q: 无法连接到 AI
+**无法连接 AI：** 确认已安装 Claude Code 并配置 API Key
 
-1. ✅ 确认已安装 Claude Code：`claude --version`
-2. ✅ 确认已配置 API Key
-3. ✅ 检查网络连接
-
-### Q: 文件上传失败
-
-- 检查文件大小是否超过 50MB 限制
-- 确认文件格式受支持
-
-### Q: 如何设置开机自启？
-
-#### 方法一：使用启动文件夹（推荐，最简单）
-
-1. **保存 PM2 进程列表**
-   ```bash
-   pm2 save
-   ```
-
-2. **打开启动文件夹**
-   - 按 `Win + R` 打开运行
-   - 输入 `shell:startup` 回车
-   - 会打开一个文件夹
-
-3. **复制启动脚本**
-   - 将项目中的 `autostart.vbs` 复制到这个文件夹
-   - 或者创建一个快捷方式指向 `启动服务.bat`
-
-4. **测试**
-   - 重启电脑
-   - 登录后等待 30 秒
-   - 打开浏览器访问 http://localhost:3000
-
-#### 方法二：使用任务计划程序（更可靠）
-
-1. **按 `Win + R`**，输入 `taskschd.msc` 回车
-
-2. **创建任务**
-   - 点击右侧 "创建基本任务"
-   - 名称：`Claude Code Web UI`
-   - 描述：`开机自启动 Claude Code Web UI 服务`
-
-3. **设置触发器**
-   - 选择 "当用户登录时"
-   - 点击 "下一步"
-
-4. **设置操作**
-   - 选择 "启动程序"
-   - 程序：`cmd.exe`
-   - 参数：`/c "cd /d e:\coder\claude_code\AI使用工具 && pm2 resurrect"`
-   - 点击 "下一步"
-
-5. **完成**
-   - 勾选 "当点击完成时打开此任务属性对话框"
-   - 在属性中勾选 "使用最高权限运行"
-   - 点击 "完成"
-
-#### 方法三：使用 PM2 + 启动脚本
-
-```bash
-# 1. 保存当前 PM2 进程列表
-pm2 save
-
-# 2. 创建启动脚本（已包含在项目中）
-# 启动服务.bat - 双击运行即可
-
-# 3. 将启动服务.bat 的快捷方式放入启动文件夹
-# %APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup
-```
-
-#### 验证开机自启是否成功
-
-```bash
-# 重启电脑后，打开命令行执行：
-pm2 list
-
-# 如果显示 status 为 online，说明自启动成功
-```
-
-### Q: 如何更新到最新版本？
-
+**如何更新：**
 ```bash
 git pull origin master
 npm install
-pm2 restart claude-code-web-ui
 ```
 
 ---
 
 ## 🛠️ 技术栈
 
-<div align="center">
-
 | 类别 | 技术 |
 |------|------|
-| **后端** | Node.js + Express |
-| **前端** | HTML5 + CSS3 + JavaScript |
-| **Markdown** | marked.js |
-| **代码高亮** | highlight.js |
-| **图表渲染** | Mermaid.js |
-| **进程管理** | PM2 |
-
-</div>
-
----
-
-## 🤝 贡献
-
-欢迎提交 Issue 和 Pull Request！
-
-1. Fork 本项目
-2. 创建特性分支：`git checkout -b feature/AmazingFeature`
-3. 提交更改：`git commit -m 'Add some AmazingFeature'`
-4. 推送到分支：`git push origin feature/AmazingFeature`
-5. 提交 Pull Request
+| 后端 | Node.js + Express |
+| 前端 | HTML5 + CSS3 + JavaScript |
+| Markdown | marked.js |
+| 图表 | Mermaid.js |
 
 ---
 
 ## 📄 许可证
 
-本项目基于 [MIT License](LICENSE) 开源。
-
----
-
-## 🙏 致谢
-
-- [Claude Code](https://docs.anthropic.com/claude-code) - Anthropic 官方 CLI 工具
-- [Express](https://expressjs.com/) - Fast, unopinionated, minimalist web framework
-- [Marked](https://marked.js.org/) - Markdown parser and compiler
-- [Mermaid](https://mermaid.js.org/) - Generation of diagrams
-
----
-
-<div align="center">
-
-**如果这个项目对你有帮助，请给个 ⭐ Star 支持一下！**
-
-</div>
+[MIT License](LICENSE)
