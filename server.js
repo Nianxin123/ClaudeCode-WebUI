@@ -132,7 +132,8 @@ function callClaude(prompt) {
     const child = spawn('claude', ['-p', '--dangerously-skip-permissions'], {
       stdio: ['pipe', 'pipe', 'pipe'],
       shell: true,
-      cwd: workspaceDir  // 在专属工作目录中运行，用户无法访问项目其他文件
+      cwd: workspaceDir,
+      windowsHide: true  // 隐藏命令行窗口
     });
 
     let stdout = '';

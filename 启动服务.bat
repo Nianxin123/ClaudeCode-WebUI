@@ -3,33 +3,33 @@ chcp 65001 >nul
 title Claude Code Web UI
 
 echo.
-echo ╔══════════════════════════════════════════╗
-echo ║     Claude Code Web UI                  ║
-echo ║     正在启动服务...                       ║
-echo ╚══════════════════════════════════════════╝
+echo ========================================
+echo     Claude Code Web UI
+echo     Starting server...
+echo ========================================
 echo.
 
-REM 检查Node.js是否安装
+REM Check if Node.js is installed
 where node >nul 2>nul
 if %errorlevel% neq 0 (
-    echo [错误] 未检测到 Node.js，请先安装 Node.js
-    echo 下载地址: https://nodejs.org/
+    echo [Error] Node.js not found!
+    echo Please install Node.js from: https://nodejs.org/
     echo.
     pause
     exit /b 1
 )
 
-REM 检查node_modules是否存在
+REM Check if node_modules exists
 if not exist "node_modules" (
-    echo [提示] 首次运行，正在安装依赖...
+    echo [Info] First run, installing dependencies...
     call npm install
     echo.
 )
 
-REM 启动服务
-echo [启动] 正在启动服务...
-echo [访问] 请在浏览器中打开: http://localhost:3000
-echo [停止] 按 Ctrl+C 停止服务
+REM Start server
+echo [Start] Starting server...
+echo [Access] Open browser: http://localhost:3000
+echo [Stop] Press Ctrl+C to stop
 echo.
 call npm start
 
