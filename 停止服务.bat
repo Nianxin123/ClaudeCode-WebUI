@@ -9,11 +9,23 @@ echo     Stopping server...
 echo ========================================
 echo.
 
-REM Stop PM2 process
-pm2 stop all
-pm2 delete all
+REM Find process using port 3000
+set PID=
+for /f "tokens=5" %%a in ('netstat -ano ^| findstr :3000 ^| findstr LISTENING') do (
+    set PID=%%a
+)
 
-echo.
-echo [Done] Server stopped!
+if "%PID%"=="" (
+    echo [Info] No running server found on port 3000.
+) else (
+    echo [Stop] Found server process (PID: %PID%^), stopping...
+    taskkill /F /PID %PID% >nul 2>nul
+    if %errorlevel% equ 0 (
+        echo [Done] Server stopped!
+    ) else (
+        echo [Error] Failed to stop process.
+    )
+)
+
 echo.
 pause
