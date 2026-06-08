@@ -13,10 +13,30 @@
 - ER图 (ER Diagram)
 - 用户旅程图 (User Journey)
 
+## 默认主题配置（经典灰色 - 简约大方）
+
+**所有 Mermaid 图表必须使用以下配置作为开头：**
+
+```
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '20px', 'fontFamily': 'Microsoft YaHei', 'primaryColor': '#F3F4F6', 'primaryTextColor': '#1F2937', 'primaryBorderColor': '#D1D5DB', 'lineColor': '#6B7280', 'secondaryColor': '#ECFDF5', 'tertiaryColor': '#EFF6FF', 'edgeLabelBackground': '#ffffff'}}}%%
+```
+
+**配置说明：**
+- `fontSize: '20px'` - 字体大小
+- `fontFamily: 'Microsoft YaHei'` - 使用微软雅黑字体
+- `primaryColor: '#F3F4F6'` - 主色调（浅灰背景）
+- `primaryTextColor: '#1F2937'` - 主文字颜色（深灰）
+- `primaryBorderColor: '#D1D5DB'` - 边框颜色（中灰）
+- `lineColor: '#6B7280'` - 连线颜色
+- `secondaryColor: '#ECFDF5'` - 次要颜色（浅绿）
+- `tertiaryColor: '#EFF6FF'` - 第三颜色（浅蓝）
+- `edgeLabelBackground: '#ffffff'` - 标签背景（白色）
+
 ## Mermaid 语法示例
 
 ### 流程图
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '20px', 'fontFamily': 'Microsoft YaHei', 'primaryColor': '#F3F4F6', 'primaryTextColor': '#1F2937', 'primaryBorderColor': '#D1D5DB', 'lineColor': '#6B7280', 'secondaryColor': '#ECFDF5', 'tertiaryColor': '#EFF6FF', 'edgeLabelBackground': '#ffffff'}}}%%
 graph TD
     A[开始] --> B{判断条件}
     B -->|是| C[执行操作1]
@@ -27,6 +47,7 @@ graph TD
 
 ### 时序图
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '20px', 'fontFamily': 'Microsoft YaHei', 'primaryColor': '#F3F4F6', 'primaryTextColor': '#1F2937', 'primaryBorderColor': '#D1D5DB', 'lineColor': '#6B7280', 'secondaryColor': '#ECFDF5', 'tertiaryColor': '#EFF6FF', 'edgeLabelBackground': '#ffffff'}}}%%
 sequenceDiagram
     participant User as 用户
     participant AI as AI助手
@@ -49,6 +70,7 @@ sequenceDiagram
 这是一个登录流程图：
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {'fontSize': '20px', 'fontFamily': 'Microsoft YaHei', 'primaryColor': '#F3F4F6', 'primaryTextColor': '#1F2937', 'primaryBorderColor': '#D1D5DB', 'lineColor': '#6B7280', 'secondaryColor': '#ECFDF5', 'tertiaryColor': '#EFF6FF', 'edgeLabelBackground': '#ffffff'}}}%%
 graph TD
     A[用户打开登录页面] --> B[输入用户名和密码]
     B --> C[点击登录按钮]
